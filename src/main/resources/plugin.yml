@@ -1,0 +1,33 @@
+name: WOCPlugin
+version: '${project.version}'
+main: wocplugin.wocplugin.WOCPlugin
+api-version: 1.19
+prefix: Loading
+load: STARTUP
+description: A plugin for the best server in existance
+website: Lachlanjowett.com
+commands:
+  wand:
+    description: Gives the custom wand item to the player
+    usage: /<command>
+    aliases: w
+    permission: give
+    permission-message: You do not have permission to do that!
+  fly:
+    description: Toggles flying for the player
+    usage: /<command>
+    aliases: [f, togglefly, flight, playerfly]
+    permission: fly
+    permission-message: You do not have permission to do that!
+  warp:
+    description: Warps the player to the specified location
+    usage: /<command>
+    aliases: wrp
+    permission: tp
+    permission-message: You do not have permission to do that!
+  spawn:
+    description: Spawns a custom mob!
+    usage: /<command>
+    aliases: spn
+    permission: give
+    permission-message: You do not have permission to do that!
