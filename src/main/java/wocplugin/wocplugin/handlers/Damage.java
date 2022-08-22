@@ -46,7 +46,6 @@ public class Damage implements Listener {
         new BukkitRunnable() {
             public void run() {
                 hologram.remove();
-                Bukkit.getServer().dispatchCommand(null, "say hello");
             }
         }.runTaskLater(plugin, 30);
         // Damage hologram end
