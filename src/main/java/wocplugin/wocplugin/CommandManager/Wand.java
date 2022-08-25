@@ -26,6 +26,8 @@ public class Wand implements CommandExecutor {
                 player.getInventory().addItem(ItemManager.shortBow);
             } else if (args[0].equalsIgnoreCase("mob")) {
                 player.getInventory().addItem(ItemManager.mobTester);
+            } else if (args[0].equalsIgnoreCase("grapple")) {
+                player.getInventory().addItem(ItemManager.grapple);
             }
         }
         return true;
