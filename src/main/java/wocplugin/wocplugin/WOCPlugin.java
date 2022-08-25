@@ -38,7 +38,6 @@ public final class WOCPlugin extends JavaPlugin {
         database = mongoClient.getDatabase("MCServer");
         playerData = database.getCollection("playerData");
 
-
         // Register events
         getServer().getPluginManager().registerEvents(new playerHandler(), this);
         getServer().getPluginManager().registerEvents(new BlockHandler(this), this);
