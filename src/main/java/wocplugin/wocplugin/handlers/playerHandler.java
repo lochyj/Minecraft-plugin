@@ -21,11 +21,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import wocplugin.wocplugin.GUI.MineMerchant;
 import wocplugin.wocplugin.Items.ItemManager;
+import wocplugin.wocplugin.Util.ItemStackStorage;
 import wocplugin.wocplugin.WOCPlugin;
 
 import java.util.*;
@@ -151,7 +153,7 @@ public class playerHandler implements Listener {
                     .append("first_join", System.currentTimeMillis())
                     .append("last_join", System.currentTimeMillis())
                     .append("play_time", 0)
-                    .append("inventories", new Document("inventory", Arrays.toString(event.getPlayer().getInventory().getContents())))
+                    .append("inventories", new Document("inventory", ItemStackStorage.InventoryTo64(event.getPlayer().getInventory())))
                     .append("loot_chests", new Document());
 
 
@@ -169,7 +171,7 @@ public class playerHandler implements Listener {
         } else {
             Bson updates = new Document("_id", event.getPlayer().getUniqueId().toString())
                     .append("last_join", System.currentTimeMillis())
-                    .append("inventories", new Document("inventory", Arrays.toString(event.getPlayer().getInventory().getContents())));
+                    .append("inventories", new Document("inventory", ItemStackStorage.InventoryTo64(event.getPlayer().getInventory())));
 
             Bson query = new Document("_id", event.getPlayer().getUniqueId().toString());
 

@@ -1,9 +1,6 @@
 package wocplugin.wocplugin.handlers;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -95,6 +92,8 @@ public class BlockHandler implements Listener {
 
             // Check if the block is a stone or ore
             if (((stone.contains(block.getType())) || (ores.contains(block.getType())))) {
+
+                player.playSound(player.getLocation(), Sound.ENTITY_ARROW_HIT_PLAYER, 3, 2);
 
                 // If lvl 1
                 if (ores.contains(block.getType())) {

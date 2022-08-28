@@ -31,3 +31,7 @@ commands:
     aliases: spn
     permission: give
     permission-message: You do not have permission to do that!
+  enderchest:
+    description: Opens the players custom enderchest
+    usage: /<command>
+    aliases: ec

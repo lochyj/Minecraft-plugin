@@ -2,23 +2,25 @@ package wocplugin.wocplugin;
 
 import com.mongodb.*;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
-import wocplugin.wocplugin.CommandManager.Spawn;
-import wocplugin.wocplugin.CommandManager.Warp;
+import wocplugin.wocplugin.CommandManager.*;
+import wocplugin.wocplugin.Enchants.EnchantmentWrapper;
 import wocplugin.wocplugin.Items.ItemManager;
-import wocplugin.wocplugin.CommandManager.Fly;
-import wocplugin.wocplugin.CommandManager.Wand;
 import wocplugin.wocplugin.handlers.*;
 
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public final class WOCPlugin extends JavaPlugin {
@@ -49,14 +51,26 @@ public final class WOCPlugin extends JavaPlugin {
         getCommand("wand").setExecutor(new Wand());
         getCommand("warp").setExecutor(new Warp());
         getCommand("spawn").setExecutor(new Spawn());
+        getCommand("enderchest").setExecutor(new enderchest());
 
-
+        EnchantmentWrapper.register();
     }
 
     public static Object returnDB(Player player, MongoCollection collection) {
-        Bson query = new Document("_id", player.getUniqueId().toString());
-
+        Bson query;
+        query = new Document("_id", player.getUniqueId().toString());
         return collection.find(query).first();
+    }
+
+    public static boolean removeDB(Player player, String nest, String location, MongoCollection collection) {
+        Bson query;
+        if (nest != null) {
+            query = new Document("_id", player.getUniqueId().toString())
+                    .append(nest, location);
+        } else {
+            query = new Document("_id", player.getUniqueId().toString());
+        }
+        return collection.deleteOne(query).getDeletedCount() > 0;
     }
 
     public static boolean updateDB(Player player, String nest, String key, Object value, MongoCollection collection) {
