@@ -9,9 +9,11 @@ import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import wocplugin.wocplugin.Util.ItemStackStorage;
+import wocplugin.wocplugin.Util.Util;
 import wocplugin.wocplugin.WOCPlugin;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class EnderchestHandler implements Listener {
 
@@ -38,13 +40,14 @@ public class EnderchestHandler implements Listener {
         Object arryObj = inventories.get("ender_chest");
 
         if (arryObj == null) {
-            player.sendMessage(ChatColor.RED + "There was an error");
+            player.sendMessage(ChatColor.RED + "There was an error, Enderchest is null");
+            player.sendMessage(ChatColor.RED + inventories.toString());
 
-            WOCPlugin.updateDB(
+            Util.updateDB(
                     player,
                     "inventories",
                     "ender_chest",
-                    ItemStackStorage.InventoryTo64(Bukkit.createInventory(player, 45, "Ender Chest")),
+                    ItemStackStorage.InventoryTo64(Bukkit.createInventory(player, 27, "Ender Chest")),
                     WOCPlugin.playerData
             );
 
@@ -53,6 +56,7 @@ public class EnderchestHandler implements Listener {
 
         String arry = arryObj.toString();
         inventory = ItemStackStorage.InventoryFrom64(arry, "Ender Chest", player);
+        player.sendMessage(Arrays.toString(inventory.getContents()));
         player.openInventory(inventory);
 
     }

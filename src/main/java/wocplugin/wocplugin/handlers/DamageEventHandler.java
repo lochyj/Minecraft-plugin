@@ -1,41 +1,40 @@
 package wocplugin.wocplugin.handlers;
 
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.text.DecimalFormat;
 
-public class Damage implements Listener {
-
-    public Plugin plugin;
-
-    public Damage(Plugin plugin1) {
-        plugin = plugin1;
-    }
+public class DamageEventHandler implements Listener {
 
     @EventHandler
     public void EntityDamage(EntityDamageEvent event) {
         Entity entity = event.getEntity();
-        final DecimalFormat df = new DecimalFormat("0.00");
+        final DecimalFormat df = new DecimalFormat("0.0");
         if (entity.getName().contains("Ghoul")) {
             Double health = Double.parseDouble(entity.getName().split("❤")[1]) -  event.getFinalDamage();
             health = Double.parseDouble(df.format(health));
             if (health <= 0) {
-                health = 0.00;
+                health = 0.0;
             }
             entity.setCustomName(ChatColor.GRAY + "Ghoul"+ ChatColor.RED +" ❤" + health);
         }
+        createDamageHologram(event, df);
 
-        // Damage hologram start
+    }
+
+    public static void createDamageHologram(EntityDamageEvent event, DecimalFormat df) {
         World world = event.getEntity().getWorld();
-        Location location = (Location) event.getEntity().getLocation();
+        Location location = event.getEntity().getLocation();
         ArmorStand hologram = (ArmorStand) world.spawnEntity(location, EntityType.ARMOR_STAND);
         hologram.setVisible(false);
         hologram.setCustomName(ChatColor.RED + df.format(event.getFinalDamage()));
@@ -47,8 +46,6 @@ public class Damage implements Listener {
             public void run() {
                 hologram.remove();
             }
-        }.runTaskLater(plugin, 30);
-        // Damage hologram end
-
+        }.runTaskLater(Bukkit.getPluginManager().getPlugin("WOCPlugin"), 30);
     }
 }

@@ -7,13 +7,13 @@ import org.bukkit.inventory.ItemStack;
 
 public class EnchantmentHandler extends Enchantment {
 
+    // TODO: Actually make this work
+
     private final String name;
-    private final int maxLevel;
 
     public EnchantmentHandler(String namespace, String name, int lvl) {
         super(NamespacedKey.minecraft(namespace));
         this.name = name;
-        this.maxLevel = lvl;
     }
 
     @Override

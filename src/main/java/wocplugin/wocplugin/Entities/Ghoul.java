@@ -2,11 +2,9 @@ package wocplugin.wocplugin.Entities;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Zombie;
-import org.bukkit.inventory.ItemStack;
 
 public class Ghoul {
     public Ghoul(Location location) {
