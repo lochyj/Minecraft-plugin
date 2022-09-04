@@ -2,6 +2,7 @@ package wocplugin.wocplugin.Items;
 
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import wocplugin.wocplugin.Util.EnchantUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,8 @@ public class AddIdentifier {
         meta = item.getItemMeta();
         meta.setLore(lore);
         item.setItemMeta(meta);
+
+        item = EnchantUtil.addEnchantList(item);
 
         return item;
     }

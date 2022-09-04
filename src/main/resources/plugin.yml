@@ -35,3 +35,7 @@ commands:
     description: Opens the players custom enderchest
     usage: /<command>
     aliases: ec
+  enchanter:
+    description: Enchants the players held item
+    usage: /<command>
+    aliases: ench

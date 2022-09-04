@@ -3,25 +3,18 @@ package wocplugin.wocplugin;
 import com.mongodb.*;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.UpdateOptions;
-import com.mongodb.client.result.UpdateResult;
 
 import org.bson.Document;
-import org.bson.conversions.Bson;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import wocplugin.wocplugin.CommandManager.*;
-import wocplugin.wocplugin.Enchants.EnchantmentWrapper;
 import wocplugin.wocplugin.handlers.*;
 
 
 
 public final class WOCPlugin extends JavaPlugin {
 
-    // Make this available to all classes
     public MongoClient mongoClient = null;
     public static MongoDatabase database = null;
     public static MongoCollection<Document> playerData = null;
@@ -43,6 +36,7 @@ public final class WOCPlugin extends JavaPlugin {
         getCommand("warp").setExecutor(new Warp());
         getCommand("spawn").setExecutor(new Spawn());
         getCommand("enderchest").setExecutor(new enderchest());
+        getCommand("enchanter").setExecutor(new Enchanter());
 
         // TODO: Fix this
         // EnchantmentWrapper.register();

@@ -1,5 +1,6 @@
 package wocplugin.wocplugin.Util;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -19,18 +20,22 @@ public class EnchantUtil {
         return item;
     }
 
-    public static void addEnchant(ItemStack item, String enchant, int lvl) {
+    public static ItemStack addEnchant(ItemStack item, String enchant, int lvl) {
         ItemMeta meta = item.getItemMeta();
         assert meta != null;
         List<String> newLore = new ArrayList<>();
-        List<String> lore = new ArrayList<>();
-        newLore.add(enchant + " " + lvl + "\r\n");
 
         List<Object> metaArry = List.of(meta.getLore().toArray());
         for (int i = 0; i < metaArry.size(); i++) {
+            newLore.add((String) metaArry.get(i));
             if (metaArry.get(i).equals(Util.convertToInvisibleString("%e start%"))) {
-                lore.add(i + 1, ChatColor.GRAY + enchant + " " + lvl);
+                newLore.add(i+1, ChatColor.GRAY + enchant + " " + lvl);
+                i = i + 2;
             }
         }
+        Bukkit.getLogger().info("Set new lore");
+        meta.setLore(newLore);
+        item.setItemMeta(meta);
+        return item;
     }
 }
