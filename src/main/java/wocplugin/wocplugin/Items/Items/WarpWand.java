@@ -43,19 +43,36 @@ public class WarpWand {
 
     public static void function(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-        List<Integer> blocks = new java.util.ArrayList<>(Collections.singletonList(12));
-        for (int i = 12; i > 0; i--) {
-            Location loc = player.getLocation().add(player.getLocation().getDirection().normalize().multiply(i));
-            if (loc.getBlock().getType() == Material.AIR) {
-                blocks.add(i);
-            }
-            if (i == 1) {
-                if (blocks.size() > 0) {
-                    player.teleport(player.getLocation().add(player.getLocation().getDirection().normalize().multiply(blocks.get(0))));
-                    player.setVelocity(new Vector(0, 0, 0));
-                    player.setFallDistance(0);
-                }
+        Location loc = player.getEyeLocation();
+        Vector dir = loc.getDirection();
+        for (int i = 1; i < 13; i++) {
+            loc.add(dir);
+            if (loc.getBlock().getType() != Material.AIR) {
+                loc.subtract(dir);
+                player.teleport(loc);
+                player.setVelocity(new Vector(0, 0, 0));
+                player.setFallDistance(0);
+                break;
+            } else if (i == 12) {
+                player.teleport(loc);
+                player.setVelocity(new Vector(0, 0, 0));
+                player.setFallDistance(0);
+                break;
             }
         }
+
+//        for (int i = 12; i > 0; i--) {
+//            Location loc = player.getLocation().add(player.getLocation().getDirection().normalize().multiply(i));
+//            if (loc.getBlock().getType() == Material.AIR) {
+//                blocks.add(i);
+//            }
+//            if (i == 1) {
+//                if (blocks.size() > 0) {
+//                    player.teleport(player.getLocation().add(player.getLocation().getDirection().normalize().multiply(blocks.get(0))));
+//                    player.setVelocity(new Vector(0, 0, 0));
+//                    player.setFallDistance(0);
+//                }
+//            }
+//        }
     }
 }

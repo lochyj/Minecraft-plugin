@@ -62,7 +62,7 @@ public class Util {
         }
     }
     public static void interactCancel(PlayerInteractEvent event) {
-        if (Objects.requireNonNull(event.getClickedBlock()).getType() != Material.AIR) {
+        if (event.getClickedBlock() != null) {
             if (event.getClickedBlock().getType() == Material.ANVIL || event.getClickedBlock().getType() == Material.CHIPPED_ANVIL || event.getClickedBlock().getType() == Material.DAMAGED_ANVIL) {
                 event.setCancelled(true);
             }
