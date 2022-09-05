@@ -18,7 +18,7 @@ public class Enchanter implements CommandExecutor {
 
         Player player = (Player) sender;
         if (command.getName().equalsIgnoreCase("enchanter")) {
-            ItemStack item = EnchantUtil.addEnchant(player.getInventory().getItemInMainHand(), "test", 1);
+            ItemStack item = EnchantUtil.addEnchant(player.getInventory().getItemInMainHand(), args[0],  Integer.parseInt(args[1]));
             player.getInventory().setItemInMainHand(item);
             player.updateInventory();
         }

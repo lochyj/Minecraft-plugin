@@ -15,6 +15,7 @@ public class EnchantUtil {
         assert meta != null;
         List<String> lore = new ArrayList<>(meta.getLore());
         lore.add(Util.convertToInvisibleString("%e%"));
+        lore.add("");
         meta.setLore(lore);
         item.setItemMeta(meta);
         return item;
@@ -30,6 +31,11 @@ public class EnchantUtil {
 
 
         Object[] metaArray = meta.getLore().toArray();
+
+        if (metaArray[metaArray.length - 1].toString().contains(eB64)){
+            return item;
+        }
+
         for (int i = 0; i < metaArray.length; i++) {
             if (((String) metaArray[i]).contains(Util.convertToInvisibleString("%e%"))) {
                 newLore.add((String) metaArray[i]);
