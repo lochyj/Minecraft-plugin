@@ -2,6 +2,7 @@ package wocplugin.wocplugin.Items.Items;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -20,7 +21,7 @@ public class WarpWand {
     public static String identifier = "OpdqfgWnfiO";
 
     private static ItemStack create() {
-        ItemStack item = new ItemStack(Material.DIAMOND_SHOVEL, 1);
+        ItemStack item = new ItemStack(Material.DIAMOND_SWORD, 1);
         ItemMeta meta = item.getItemMeta();
         assert meta != null;
         meta.setDisplayName("§1§lAspect of the Void");
@@ -60,6 +61,7 @@ public class WarpWand {
                 break;
             }
         }
+        player.playSound(player.getLocation(),Sound.ENTITY_ENDERMAN_TELEPORT, 10, 2);
 
 //        for (int i = 12; i > 0; i--) {
 //            Location loc = player.getLocation().add(player.getLocation().getDirection().normalize().multiply(i));
