@@ -11,6 +11,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.scheduler.BukkitRunnable;
+import wocplugin.wocplugin.CommandManager.Spawn;
+import wocplugin.wocplugin.Entities.Ball;
 
 import java.text.DecimalFormat;
 
@@ -27,6 +29,10 @@ public class DamageEventHandler implements Listener {
                 health = 0.0;
             }
             entity.setCustomName(ChatColor.GRAY + "Ghoul"+ ChatColor.RED +" ❤" + health);
+        }
+
+        if (entity instanceof ArmorStand) {
+
         }
         createDamageHologram(event, df);
 

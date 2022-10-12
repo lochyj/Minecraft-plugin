@@ -48,7 +48,7 @@ public class WarpWand {
         Vector dir = loc.getDirection();
         for (int i = 1; i < 13; i++) {
             loc.add(dir);
-            if (loc.getBlock().getType() != Material.AIR) {
+            if (loc.getBlock().getType() != Material.AIR && loc.getBlock().getType() != Material.WATER) {
                 loc.subtract(dir);
                 player.teleport(loc);
                 player.setVelocity(new Vector(0, 0, 0));
@@ -62,19 +62,5 @@ public class WarpWand {
             }
         }
         player.playSound(player.getLocation(),Sound.ENTITY_ENDERMAN_TELEPORT, 10, 2);
-
-//        for (int i = 12; i > 0; i--) {
-//            Location loc = player.getLocation().add(player.getLocation().getDirection().normalize().multiply(i));
-//            if (loc.getBlock().getType() == Material.AIR) {
-//                blocks.add(i);
-//            }
-//            if (i == 1) {
-//                if (blocks.size() > 0) {
-//                    player.teleport(player.getLocation().add(player.getLocation().getDirection().normalize().multiply(blocks.get(0))));
-//                    player.setVelocity(new Vector(0, 0, 0));
-//                    player.setFallDistance(0);
-//                }
-//            }
-//        }
     }
 }

@@ -6,6 +6,10 @@ import com.mongodb.client.MongoDatabase;
 
 import org.bson.Document;
 
+import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.ProjectileLaunchEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import wocplugin.wocplugin.CommandManager.*;
@@ -13,7 +17,7 @@ import wocplugin.wocplugin.handlers.*;
 
 
 
-public final class WOCPlugin extends JavaPlugin {
+public final class WOCPlugin extends JavaPlugin implements Listener {
 
     public MongoClient mongoClient = null;
     public static MongoDatabase database = null;
@@ -29,8 +33,8 @@ public final class WOCPlugin extends JavaPlugin {
 
         // Register events
         getServer().getPluginManager().registerEvents(new EventHandler(this), this);
+        getServer().getPluginManager().registerEvents(this, this);
 
-        // Register commands
         getCommand("fly").setExecutor(new Fly());
         getCommand("wand").setExecutor(new Wand());
         getCommand("warp").setExecutor(new Warp());
@@ -47,4 +51,13 @@ public final class WOCPlugin extends JavaPlugin {
         // Shutdown the mongodb connection
         mongoClient.close();
     }
+
+    @org.bukkit.event.EventHandler
+    public void onPlayerFireArrow(ProjectileLaunchEvent event) {
+        if (event.getEntity().getShooter() instanceof Player) {
+            event.setCancelled(true);
+        }
+    }
+
+
 }
