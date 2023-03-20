@@ -9,7 +9,6 @@ public class EventHandler implements Listener {
     public EventHandler(Plugin plugin) {
         getServer().getPluginManager().registerEvents(new PlayerEventHandler(), plugin);
         getServer().getPluginManager().registerEvents(new BlockEventHandler(), plugin);
-        getServer().getPluginManager().registerEvents(new InventoryEventHandler(), plugin);
         getServer().getPluginManager().registerEvents(new DamageEventHandler(), plugin);
     }
 }

@@ -11,8 +11,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.scheduler.BukkitRunnable;
-import wocplugin.wocplugin.CommandManager.Spawn;
-import wocplugin.wocplugin.Entities.Ball;
 
 import java.text.DecimalFormat;
 
@@ -22,17 +20,9 @@ public class DamageEventHandler implements Listener {
     public void EntityDamage(EntityDamageEvent event) {
         Entity entity = event.getEntity();
         final DecimalFormat df = new DecimalFormat("0.0");
-        if (entity.getName().contains("Ghoul")) {
-            Double health = Double.parseDouble(entity.getName().split("❤")[1]) -  event.getFinalDamage();
-            health = Double.parseDouble(df.format(health));
-            if (health <= 0) {
-                health = 0.0;
-            }
-            entity.setCustomName(ChatColor.GRAY + "Ghoul"+ ChatColor.RED +" ❤" + health);
-        }
 
         if (entity instanceof ArmorStand) {
-
+            return;
         }
         createDamageHologram(event, df);
 

@@ -4,11 +4,10 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import wocplugin.wocplugin.Items.Items.FieldHoe;
+import wocplugin.wocplugin.Items.Items.GardenHoe;
 
-import org.bukkit.inventory.ItemStack;
-import wocplugin.wocplugin.Util.EnchantUtil;
-
-public class Enchanter implements CommandExecutor {
+public class Item implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String [] args) {
         if (!(sender instanceof Player)) {
@@ -17,10 +16,10 @@ public class Enchanter implements CommandExecutor {
         }
 
         Player player = (Player) sender;
-        if (command.getName().equalsIgnoreCase("enchanter")) {
-            ItemStack item = EnchantUtil.addEnchant(player.getInventory().getItemInMainHand(), args[0],  Integer.parseInt(args[1]));
-            player.getInventory().setItemInMainHand(item);
-            player.updateInventory();
+
+        if (command.getName().equalsIgnoreCase("item")) {
+            player.getInventory().addItem(GardenHoe.give());
+            player.getInventory().addItem(FieldHoe.give());
         }
         return true;
     }

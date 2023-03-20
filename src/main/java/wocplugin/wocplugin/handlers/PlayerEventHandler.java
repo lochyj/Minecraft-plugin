@@ -1,16 +1,12 @@
 package wocplugin.wocplugin.handlers;
 
-import com.mongodb.client.MongoCollection;
-import org.bson.Document;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import wocplugin.wocplugin.Util.Util;
-import wocplugin.wocplugin.WOCPlugin;
+import wocplugin.wocplugin.Util;
 
 public class PlayerEventHandler implements Listener {
     @EventHandler
@@ -32,15 +28,4 @@ public class PlayerEventHandler implements Listener {
 
     }
 
-    @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
-        MongoCollection<Document> collection =  WOCPlugin.playerData;
-        Document playerName = new Document("_id", event.getPlayer().getUniqueId().toString());
-
-        if (!Util.playerExists(WOCPlugin.database, playerName)) {
-            Util.playerDBInit(event.getPlayer(), collection);
-        } else if (Util.playerExists(WOCPlugin.database, playerName)){
-            Util.playerDBUpdate(event.getPlayer(), collection);
-        }
-    }
 }

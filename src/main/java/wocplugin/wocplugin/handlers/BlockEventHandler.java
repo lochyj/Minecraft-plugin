@@ -15,17 +15,35 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
+import wocplugin.wocplugin.Items.Items.FieldHoe;
+import wocplugin.wocplugin.Items.Items.GardenHoe;
 
 import java.util.List;
 import java.util.Objects;
 
+import static wocplugin.wocplugin.Util.sendPlayerMessage;
+
 public class BlockEventHandler implements Listener {
+
+    private final List<Material> stone = List.of(Material.STONE, Material.COBBLESTONE, Material.TUFF, Material.ANDESITE);
+    private final List<Material> ores = List.of(Material.DIAMOND_ORE, Material.EMERALD_ORE, Material.GOLD_ORE, Material.IRON_ORE, Material.LAPIS_ORE, Material.REDSTONE_ORE, Material.COAL_ORE, Material.COPPER_ORE);
+    private final List<Material> wood = List.of(Material.OAK_LOG, Material.SPRUCE_LOG, Material.BIRCH_LOG, Material.DARK_OAK_LOG, Material.JUNGLE_LOG, Material.ACACIA_LOG);
+    private final List<Material> leaves = List.of(Material.OAK_LEAVES, Material.SPRUCE_LEAVES, Material.BIRCH_LEAVES, Material.DARK_OAK_LEAVES, Material.JUNGLE_LEAVES, Material.ACACIA_LEAVES);
+    private final List<Material> crops = List.of(Material.WHEAT, Material.BEETROOT_SEEDS, Material.MELON_SEEDS, Material.PUMPKIN_SEEDS, Material.PUMPKIN, Material.MELON, Material.BEETROOT, Material.POTATOES, Material.CARROTS);
+
+
+    private final List<Material> placeableCrops = List.of(Material.WHEAT, Material.BEETROOT_SEEDS, Material.POTATOES, Material.MELON_SEEDS, Material.CARROTS);
+
 
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
         Player player = event.getPlayer();
         if (!(player.getGameMode() == GameMode.CREATIVE)) {
             event.setCancelled(true);
+        }
+
+        if (placeableCrops.contains(event.getBlock().getType())) {
+            event.setCancelled(false);
         }
     }
 
@@ -39,19 +57,36 @@ public class BlockEventHandler implements Listener {
         int forestDelay = 500;
         int farmsDelay = 700;
 
+        // List of all breakable blocks
+
+
+        if (player.getItemInHand().getItemMeta().getLore().contains(GardenHoe.identifier)) {
+            if (crops.contains(block.getType())) {
+                if (Objects.equals(block.getState().getData().toString().split(" ")[0].toLowerCase(), "ripe")) {
+                    player.playSound(player.getLocation(), Sound.ENTITY_ARROW_HIT_PLAYER, 2, 2);
+                    return;
+                }
+                event.setCancelled(true);
+            }
+        } else if (player.getItemInHand().getItemMeta().getLore().contains(FieldHoe.identifier)) {
+            if (crops.contains(block.getType())) {
+                if (Objects.equals(block.getState().getData().toString().split(" ")[0].toLowerCase(), "ripe")) {
+                    block.setType(block.getType());
+                    event.setCancelled(true);
+                    block.getDrops().forEach(item -> player.getInventory().addItem(item));
+                    player.playSound(player.getLocation(), Sound.ENTITY_ARROW_HIT_PLAYER, 3, 2);
+                    return;
+                }
+                event.setCancelled(true);
+            }
+        }
+
         // Check if the player is an admin / builder and exempt if they are
         if (player.getGameMode().equals(GameMode.CREATIVE)) {
             return;
         }
 
         event.setCancelled(true);
-
-        // List of all breakable blocks
-        List<Material> stone = List.of(Material.STONE, Material.COBBLESTONE, Material.TUFF, Material.ANDESITE);
-        List<Material> ores = List.of(Material.DIAMOND_ORE, Material.EMERALD_ORE, Material.GOLD_ORE, Material.IRON_ORE, Material.LAPIS_ORE, Material.REDSTONE_ORE, Material.COAL_ORE, Material.COPPER_ORE);
-        List<Material> wood = List.of(Material.OAK_LOG, Material.SPRUCE_LOG, Material.BIRCH_LOG, Material.DARK_OAK_LOG, Material.JUNGLE_LOG, Material.ACACIA_LOG);
-        List<Material> leaves = List.of(Material.OAK_LEAVES, Material.SPRUCE_LEAVES, Material.BIRCH_LEAVES, Material.DARK_OAK_LEAVES, Material.JUNGLE_LEAVES, Material.ACACIA_LEAVES);
-        List<Material> crops = List.of(Material.WHEAT, Material.WHEAT_SEEDS, Material.BEETROOT_SEEDS, Material.MELON_SEEDS, Material.PUMPKIN_SEEDS, Material.PUMPKIN, Material.MELON, Material.BEETROOT);
 
         // Check if the block has meta, if it doesn't, give it some.
         if (!(block.hasMetadata(block.getLocation().toString()))) {

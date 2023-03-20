@@ -41,7 +41,7 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
-                            <outputFile>C:\Users\lochy\OneDrive\Desktop\Server\plugins\Plugins.jar</outputFile>
+                            <outputFile>C:\Users\lochy\Desktop\Server\plugins\Plugins.jar</outputFile>
                         </configuration>
                     </execution>
                 </executions>
@@ -64,10 +64,6 @@
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
-        <repository>
-            <id>everything</id>
-            <url>https://repo.citizensnpcs.co/</url>
-        </repository>
     </repositories>
 
     <dependencies>
@@ -78,16 +74,14 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>net.citizensnpcs</groupId>
-            <artifactId>citizens-main</artifactId>
-            <version>2.0.30-SNAPSHOT</version>
-            <type>jar</type>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>org.mongodb</groupId>
             <artifactId>mongo-java-driver</artifactId>
             <version>3.12.11</version>
+        </dependency>
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+            <version>12.2.0.jre8</version>
         </dependency>
     </dependencies>
 </project>

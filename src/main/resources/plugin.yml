@@ -7,10 +7,10 @@ load: STARTUP
 description: A plugin for the best server in existance
 website: Lachlanjowett.com
 commands:
-  wand:
-    description: Gives the custom wand item to the player
+  item:
+    description: Testing command that gives the player the item that is currently being tested
     usage: /<command>
-    aliases: w
+    aliases: [i, itm, items]
     permission: give
     permission-message: You do not have permission to do that!
   fly:
@@ -19,23 +19,3 @@ commands:
     aliases: [f, togglefly, flight, playerfly]
     permission: fly
     permission-message: You do not have permission to do that!
-  warp:
-    description: Warps the player to the specified location
-    usage: /<command>
-    aliases: wrp
-    permission: tp
-    permission-message: You do not have permission to do that!
-  spawn:
-    description: Spawns a custom mob!
-    usage: /<command>
-    aliases: spn
-    permission: give
-    permission-message: You do not have permission to do that!
-  enderchest:
-    description: Opens the players custom enderchest
-    usage: /<command>
-    aliases: ec
-  enchanter:
-    description: Enchants the players held item
-    usage: /<command>
-    aliases: ench
